@@ -18,7 +18,7 @@ export default function ApiLinks() {
 
   const callApiRoute = async () => {
     try {
-      const response = await fetch('/api/hello');
+      const response = await fetch('/api/hello-pages');
       const data = await response.json();
       setApiRouteResponse(JSON.stringify(data, null, 2));
     } catch (error) {
@@ -60,7 +60,7 @@ export default function ApiLinks() {
         <div className="border p-4 rounded-lg">
           <h2 className="text-xl font-semibold mb-3">Pages Router - API Route</h2>
           <p className="text-gray-600 mb-3">
-            API Route located at: <code className="bg-gray-100 px-2 py-1 rounded">pages/api/hello.ts</code>
+            API Route located at: <code className="bg-gray-100 px-2 py-1 rounded">pages/api/hello-pages.ts</code>
           </p>
           <button 
             onClick={callApiRoute}
@@ -69,7 +69,7 @@ export default function ApiLinks() {
             Call API Route
           </button>
           <a 
-            href="/api/hello" 
+            href="/api/hello-pages" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block"
@@ -87,10 +87,10 @@ export default function ApiLinks() {
         <div className="border p-4 rounded-lg bg-yellow-50">
           <h3 className="text-lg font-semibold mb-2">How Links Work</h3>
           <ul className="list-disc pl-5 space-y-1 text-sm">
-            <li><strong>Direct Links:</strong> Use anchor tags with href="/api/hello" to directly navigate to API endpoints</li>
+            <li><strong>Direct Links:</strong> Use anchor tags with href=&quot;/api/hello&quot; to directly navigate to API endpoints</li>
             <li><strong>Fetch Calls:</strong> Use fetch() to programmatically call API routes and handle responses</li>
             <li><strong>Next.js Link:</strong> Use Next.js Link component for client-side navigation between pages</li>
-            <li><strong>Both Route Handlers and API Routes:</strong> Share the same URL pattern but use different implementations</li>
+            <li><strong>Different Routes:</strong> App Router uses /api/hello, Pages Router uses /api/hello-pages (to avoid conflicts)</li>
           </ul>
         </div>
       </div>

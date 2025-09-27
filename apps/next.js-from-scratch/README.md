@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 ```
 
 ### 2. Pages Router - API Route
-**File:** `pages/api/hello.ts`
+**File:** `pages/api/hello-pages.ts`
 ```typescript
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -64,8 +64,8 @@ npm run dev
 
 ## API Route URLs
 
-Both implementations will be available at:
-- `GET /api/hello` - Accessible via browser or fetch calls
+- `GET /api/hello` - App Router Route Handler
+- `GET /api/hello-pages` - Pages Router API Route
 
 ## Key Differences
 
@@ -85,7 +85,7 @@ app/
 
 pages/
 └── api/
-    └── hello.ts              # Pages Router API endpoint
+    └── hello-pages.ts        # Pages Router API endpoint
 
 src/
 └── components/
