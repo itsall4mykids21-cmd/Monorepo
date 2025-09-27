@@ -1,0 +1,3 @@
+[build]
+  publish = "slot-app/build"
+  command = "cd slot-app && npm run build"
