@@ -29,6 +29,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [leaderboard, setLeaderboard] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
     // Check for logged in user
@@ -113,12 +114,23 @@ function App() {
       <h2>Available Games</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
         {games.map((game, idx) => (
-          <div key={idx} style={{ textAlign: 'center', width: '120px' }}>
+          <div
+            key={idx}
+            style={{ textAlign: 'center', width: '120px', cursor: 'pointer', border: selectedGame === game ? '2px solid #007bff' : '2px solid transparent', borderRadius: '8px', boxShadow: selectedGame === game ? '0 0 8px #007bff' : 'none' }}
+            onClick={() => setSelectedGame(game)}
+          >
             <img src={game.image} alt={game.name} style={{ width: '100px', height: '100px', objectFit: 'cover', background: '#eee', borderRadius: '8px' }} />
             <div style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>{game.name}</div>
           </div>
         ))}
       </div>
+      {selectedGame && (
+        <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h3>Selected Game</h3>
+          <img src={selectedGame.image} alt={selectedGame.name} style={{ width: '100px', height: '100px', objectFit: 'cover', background: '#eee', borderRadius: '8px' }} />
+          <div style={{ marginTop: '0.5rem', fontWeight: 'bold', fontSize: '1.2rem' }}>{selectedGame.name}</div>
+        </div>
+      )}
       {!user ? (
         <div style={{ marginBottom: '2rem' }}>
           <form onSubmit={handleLogin} style={{ marginBottom: '1rem' }}>
