@@ -14,10 +14,19 @@ This is a shell script-based tool that:
 ## Key Files
 
 - `migrate-to-monorepo.sh` - Main migration script
-- `demo-migration.sh` - Demo/testing script
+- `demo-migration.sh` - Demo/testing script  
 - `validate-migration.sh` - Validation and testing script
 - `README.md` - Comprehensive documentation
 - `package.json` - Basic package configuration
+
+## Architecture Overview
+
+The tool follows a modular approach:
+- **Configuration**: `SOURCE_REPOS` associative array maps source repos to target paths
+- **Logging**: Color-coded output using standardized functions
+- **Error Handling**: Robust with `set -euo pipefail` and comprehensive error checking
+- **Git Operations**: Uses advanced git features for safe history rewriting
+- **Validation**: Built-in testing framework for verification
 
 ## Development Guidelines
 
@@ -77,3 +86,87 @@ When modifying this tool:
 - `git-filter-repo` must be installed (via pip, apt, or brew)
 - Standard bash utilities and git
 - No Node.js dependencies despite having package.json
+
+## Code Examples and Patterns
+
+### Adding a New Source Repository
+
+To add a new repository to the migration:
+
+```bash
+# In migrate-to-monorepo.sh, update SOURCE_REPOS array:
+declare -A SOURCE_REPOS=(
+    ["next.js"]="apps/next.js-from-scratch"
+    ["nextjs-with-supabase"]="apps/nextjs-with-supabase"  
+    ["itsall4mykids21-cmd.github.io"]="apps/site"
+    ["new-repo"]="apps/new-app"  # Add new mapping here
+)
+```
+
+### Logging Pattern
+
+Always use the established logging functions:
+
+```bash
+log_info "Starting migration process..."
+log_success "Migration completed successfully ✓"
+log_warning "Source repository not found, skipping..."
+log_error "Failed to merge repository"
+```
+
+### Error Handling Pattern
+
+Follow the established error handling pattern:
+
+```bash
+if some_command; then
+    log_success "Operation completed"
+else
+    log_error "Operation failed, continuing with next step"
+    return 1
+fi
+```
+
+### Testing New Features
+
+Always test changes using the validation framework:
+
+```bash
+# Add new test functions to validate-migration.sh
+test_new_feature() {
+    log_info "Testing new feature..."
+    
+    if [[ condition ]]; then
+        log_success "New feature test passed ✓"
+    else
+        log_error "New feature test failed"
+        return 1
+    fi
+}
+```
+
+## Troubleshooting Guide
+
+### Common Issues
+
+1. **Script permissions**: Ensure scripts are executable with `chmod +x script.sh`
+2. **git-filter-repo not found**: Install using package manager or pip
+3. **Merge conflicts**: The tool handles these automatically with `--allow-unrelated-histories`
+4. **Empty repositories**: Tool creates initial commit if repository is empty
+
+### Development Workflow
+
+1. Make changes to scripts
+2. Run `./validate-migration.sh` to test
+3. Use `./demo-migration.sh` for integration testing
+4. Update documentation if needed
+5. Commit changes with descriptive messages
+
+## Best Practices for Contributors
+
+- Preserve the idempotent nature of operations
+- Always clean up temporary files and directories
+- Use the established color-coded logging system
+- Test with both empty and populated repositories
+- Maintain backward compatibility with existing configurations
+- Document any new configuration options in README.md
