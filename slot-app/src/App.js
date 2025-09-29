@@ -29,6 +29,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [leaderboard, setLeaderboard] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
     // Check for logged in user
@@ -81,6 +82,11 @@ function App() {
     setMessage('Logged out');
   };
 
+  const handleGameSelect = (game) => {
+    setSelectedGame(game);
+    setMessage(`Selected: ${game.name}`);
+  };
+
   const spin = async () => {
     setSpinning(true);
     const newSymbols = getRandomSymbols();
@@ -113,12 +119,29 @@ function App() {
       <h2>Available Games</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
         {games.map((game, idx) => (
-          <div key={idx} style={{ textAlign: 'center', width: '120px' }}>
+          <div 
+            key={idx} 
+            style={{ 
+              textAlign: 'center', 
+              width: '120px', 
+              cursor: 'pointer',
+              border: selectedGame?.name === game.name ? '3px solid #4CAF50' : '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '0.5rem'
+            }}
+            onClick={() => handleGameSelect(game)}
+          >
             <img src={game.image} alt={game.name} style={{ width: '100px', height: '100px', objectFit: 'cover', background: '#eee', borderRadius: '8px' }} />
             <div style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>{game.name}</div>
           </div>
         ))}
       </div>
+      {selectedGame && (
+        <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h3>Now Playing: {selectedGame.name}</h3>
+          <img src={selectedGame.image} alt={selectedGame.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />
+        </div>
+      )}
       {!user ? (
         <div style={{ marginBottom: '2rem' }}>
           <form onSubmit={handleLogin} style={{ marginBottom: '1rem' }}>
