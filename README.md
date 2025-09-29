@@ -1,6 +1,44 @@
-# Monorepo Migration Tool
+# Monorepo Migration Tool & Slot Game App
 
-This repository contains a comprehensive migration script for combining multiple repositories into a single monorepo using `git-filter-repo`.
+This repository contains a comprehensive migration script for combining multiple repositories into a single monorepo using `git-filter-repo`, plus a complete slot game application with Supabase integration.
+
+## 🎰 Slot Game App
+
+A modern slot machine game built with Next.js, React, TypeScript, and Supabase. 
+
+### Quick Start
+
+```bash
+# Run the slot game app
+./run-slot-game.sh
+```
+
+Open [http://localhost:3000](http://localhost:3000) to play!
+
+### Features
+
+- 🎰 Interactive 3-reel slot machine
+- 🎨 Beautiful UI with animations
+- 🏆 Score tracking and leaderboards
+- 👤 User authentication (optional - can play as guest)
+- 📊 Game analytics with Supabase
+- 📱 Responsive design
+
+See `apps/slot-game-app/README.md` for detailed setup instructions.
+
+## 📁 Repository Structure
+
+```
+monorepo/
+├── apps/
+│   └── slot-game-app/           # Next.js slot game application
+├── database-schema.sql          # Supabase database schema
+├── run-slot-game.sh            # Quick start script for slot game
+├── migrate-to-monorepo.sh      # Migration script
+└── README.md                   # This file
+```
+
+## 🚀 Migration Tool
 
 ## Features
 
